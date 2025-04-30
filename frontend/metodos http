@@ -1,0 +1,67 @@
+# ========= rutas =========
+
+# Crear ruta
+curl -X POST http://localhost:4004/api/rutas \
+-H "Content-Type: application/json" \
+-d '{
+  "origen": "Bogotá",
+  "destino": "Villa Pinzon",
+  "empresa_id": 1
+}'
+
+# Obtener todas las rutas
+curl http://localhost:4004/api/rutas
+
+# Obtener rutas de una empresa
+curl http://localhost:4004/api/rutas/empresa/1
+
+# Actualizar una ruta 
+curl -X PUT http://localhost:4004/api/rutas/1 \
+-H "Content-Type: application/json" \
+-d '{
+  "origen": "Zipaquirá",
+  "destino": "Chiquinquirá",
+  "empresa_id": 1
+}'
+
+# Eliminar una ruta
+curl -X DELETE http://localhost:4004/api/rutas/1
+
+# Prueba de salud del servidor
+curl http://localhost:4004/api/ping
+
+
+# ========= empresas =========
+
+# Crear empresa
+curl -X POST http://localhost:4004/api/empresas \
+-H "Content-Type: application/json" \
+-d '{
+  "nombre": "Libertadores"
+}'
+
+# Obtener todas las empresas
+curl http://localhost:4004/api/empresas
+
+# Actualizar una empresa
+curl -X PUT http://localhost:4004/api/empresas/1 \
+-H "Content-Type: application/json" \
+-d '{
+  "nombre": "Empresa Renombrada"
+}'
+
+# Eliminar una empresa 
+curl -X DELETE http://localhost:4004/api/empresas/1
+
+
+# ========= pruebas con error =========
+
+# Crear empresa sin nombre
+curl -X POST http://localhost:4004/api/empresas \
+-H "Content-Type: application/json" \
+-d '{}'
+
+# Crear ruta incompleta
+curl -X POST http://localhost:4004/api/rutas \
+-H "Content-Type: application/json" \
+-d '{}'
