@@ -41,6 +41,20 @@ const db = new sqlite3.Database(dbPath, (err) => {
       });
     });
 
+    // Crear tabla de usuarios
+    db.run(`
+  CREATE TABLE IF NOT EXISTS usuarios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    nombre TEXT,
+    empresa_id TEXT,
+    FOREIGN KEY (empresa_id) REFERENCES empresas(id)
+  )
+`, (err) => {
+      if (err) console.error('Error creando tabla usuarios:', err.message);
+    });
+
     db.close((err) => {
       if (err) {
         console.error('Error al cerrar la base de datos:', err.message);
