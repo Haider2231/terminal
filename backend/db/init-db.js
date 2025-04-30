@@ -24,6 +24,51 @@ const db = new sqlite3.Database(dbPath, (err) => {
         }
       });
 
+      // Agregar columna tarifa a la tabla rutas
+      db.run(`
+        ALTER TABLE rutas ADD COLUMN tarifa REAL NOT NULL DEFAULT 0
+      `, (err) => {
+        if (err) {
+          console.error('Error al agregar columna tarifa a la tabla rutas:', err.message);
+        }
+      });
+
+      // Crear tabla de buses
+      db.run(`
+        CREATE TABLE IF NOT EXISTS buses (
+          id TEXT PRIMARY KEY,
+          numero INTEGER NOT NULL,
+          placa TEXT NOT NULL UNIQUE,
+          conductor TEXT NOT NULL,
+          ruta_id TEXT NOT NULL,
+          horario TEXT NOT NULL,
+          tipo TEXT CHECK(tipo IN ('ida', 'vuelta')) NOT NULL,
+          agencia_id TEXT NOT NULL,
+          FOREIGN KEY (ruta_id) REFERENCES rutas(id),
+          FOREIGN KEY (agencia_id) REFERENCES agencias(id)
+        )
+      `, (err) => {
+        if (err) {
+          console.error('Error creando tabla buses:', err.message);
+        }
+      });
+
+      // Crear tabla intermedia buses_rutas
+      db.run(`
+        CREATE TABLE IF NOT EXISTS buses_rutas (
+          id TEXT PRIMARY KEY,
+          bus_id TEXT NOT NULL,
+          ruta_id TEXT NOT NULL,
+          horario TEXT NOT NULL,
+          tipo TEXT CHECK(tipo IN ('ida', 'vuelta')) NOT NULL,
+          FOREIGN KEY (bus_id) REFERENCES buses(id),
+          FOREIGN KEY (ruta_id) REFERENCES rutas(id)
+        )
+      `, (err) => {
+        if (err) {
+          console.error('Error creando tabla buses_rutas:', err.message);
+        }
+      });
       // Crear tabla de rutas
       db.run(`
         CREATE TABLE IF NOT EXISTS rutas (
@@ -40,6 +85,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
         }
       });
     });
+
 
     db.close((err) => {
       if (err) {
