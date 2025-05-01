@@ -72,4 +72,16 @@ router.delete('/rutas/:id', async (req, res) => {
     }
 });
 
+// Obtener rutas por empresa
+router.get('/rutas/empresa/:empresaId', async (req, res) => {
+    const { empresaId } = req.params;
+    try {
+        const result = await pool.query('SELECT * FROM rutas WHERE empresa_id = $1', [empresaId]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error al obtener rutas por empresa:', error);
+        res.status(500).json({ error: 'Error al obtener rutas por empresa' });
+    }
+});
+
 module.exports = router;

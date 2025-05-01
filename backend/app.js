@@ -1,17 +1,38 @@
 const express = require('express');
 const cors = require('cors');
+//const pool = require('./db/connection'); // Importar conexión a PostgreSQL
 const app = express();
-const rutas = require('./routes/rutas'); // Importa tus rutas
+
+
+// Importar rutas
+const rutas = require('./routes/rutas');
+const viajes = require('./routes/viajes');
+const usuarios = require('./routes/usuarios');
+const tiquetes = require('./routes/tiquetes');
+const roles = require('./routes/roles');
+const municipios = require('./routes/municipios');
+const empresas = require('./routes/empresas');
+const buses = require('./routes/buses');
+const rutasMunicipio = require('./routes/rutas_municipio');
 
 // Middlewares
 app.use(cors());
 app.use(express.json()); // Para poder leer JSON en las peticiones
 
-// Usamos un prefijo para todas las rutas: /api
-app.use('/api', rutas);
+
+// Registrar rutas con prefijo /api
+app.use('/api/', rutas);
+app.use('/api/', viajes);
+app.use('/api/', usuarios);
+app.use('/api/', tiquetes);
+app.use('/api/', roles);
+app.use('/api/', municipios);
+app.use('/api/', empresas);
+app.use('/api/', buses);
+app.use('/api/', rutasMunicipio);
 
 // Puerto
 const PORT = 4004;
-app.listen(PORT, '0.0.0.0' ,() => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor backend en http://localhost:${PORT}`);
 });

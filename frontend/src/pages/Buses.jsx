@@ -16,7 +16,7 @@ function Buses() {
         const data = await getEmpresas();
         if (data.length > 0) {
           setBuses(data);
-          setMensaje('');
+          setMensaje(''); // Reset mensaje
         } else {
           setMensaje('No hay empresas registradas.');
         }
@@ -30,11 +30,14 @@ function Buses() {
 
   const handleBusClick = async (bus) => {
     setSelectedBus(bus);
+    setRutas([]); // Limpiar rutas previas al seleccionar nueva empresa
+    setViajes([]); // Limpiar viajes previos
+    setMensaje(''); // Limpiar mensaje de error al seleccionar nueva empresa
+
     try {
       const data = await getRutasPorEmpresa(bus.id);
       if (data.length > 0) {
         setRutas(data);
-        setMensaje('');
       } else {
         setMensaje('No hay rutas registradas para esta empresa.');
       }
@@ -54,7 +57,7 @@ function Buses() {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Lista de Buses</h2>
+      <h2 className="text-xl font-bold mb-4">Lista de Empresas</h2>
 
       {mensaje && <p className="text-red-500">{mensaje}</p>}
 
