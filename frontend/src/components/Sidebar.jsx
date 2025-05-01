@@ -7,7 +7,7 @@ function Sidebar({ onSelect }) {
         onClick={() => onSelect('buses')}
         className="w-full text-left px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded"
       >
-        Buses
+        Agencias
       </button>
       <button
         onClick={() => onSelect('rutas')}

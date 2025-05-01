@@ -67,3 +67,36 @@ export const getEmpresas = async () => {
     throw error;
   }
 };
+
+// Crear una nueva empresa
+export const createEmpresa = async (empresa) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/empresas`, empresa);
+    return response.data;
+  } catch (error) {
+    console.error('Error al crear la empresa:', error);
+    throw error;
+  }
+};
+
+// Actualizar una empresa
+export const updateEmpresa = async (id, empresa) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/empresas/${id}`, empresa);
+    return response.data;
+  } catch (error) {
+    console.error('Error al actualizar la empresa:', error);
+    throw error;
+  }
+};
+
+// Eliminar una empresa
+export const deleteEmpresa = async (id) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/empresas/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error al eliminar la empresa:', error);
+    throw error;
+  }
+};

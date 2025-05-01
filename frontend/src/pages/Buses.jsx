@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { getEmpresas, getRutasPorEmpresa } from '../services/rutasService'; // Importamos el servicio
+import { getViajesPorRuta } from '../services/viajesService'; // Importamos el servicio para obtener viajes
 
 function Buses() {
   const [buses, setBuses] = useState([]);
   const [rutas, setRutas] = useState([]);
   const [selectedBus, setSelectedBus] = useState(null);
   const [mensaje, setMensaje] = useState('');
+  const [viajes, setViajes] = useState([]); // Estado para almacenar los viajes
 
   // Al montar el componente, cargar las empresas automáticamente
   useEffect(() => {
@@ -41,6 +43,15 @@ function Buses() {
     }
   };
 
+  const handleVerBuses = async (rutaId) => {
+    try {
+      const data = await getViajesPorRuta(rutaId);
+      setViajes(data);
+    } catch (error) {
+      console.error('Error al obtener los viajes:', error);
+    }
+  };
+
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Lista de Buses</h2>
@@ -66,8 +77,27 @@ function Buses() {
           <h3 className="text-lg font-bold">Rutas de {selectedBus.nombre}</h3>
           <ul className="mt-2 list-disc list-inside">
             {rutas.map((ruta) => (
-              <li key={ruta.id}>
-                {ruta.origen} → {ruta.destino}
+              <li key={ruta.id} className="flex justify-between items-center">
+                <span>{ruta.origen} → {ruta.destino}</span>
+                <button 
+                  onClick={() => handleVerBuses(ruta.id)} 
+                  className="header-button"
+                >
+                  Ver Buses
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {viajes.length > 0 && (
+        <div className="mt-6">
+          <h3 className="text-lg font-bold">Buses Disponibles</h3>
+          <ul className="mt-2 list-disc list-inside">
+            {viajes.map((viaje) => (
+              <li key={viaje.id}>
+                Bus: {viaje.numero_bus}, Salida: {viaje.salida}, Llegada: {viaje.llegada}
               </li>
             ))}
           </ul>

@@ -1,120 +1,75 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db/connection');
-
-// Obtener todas las empresas
-router.get('/empresas', (req, res) => {
-  db.all('SELECT * FROM empresas', [], (err, rows) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(rows);
-  });
-});
-
-// Crear una nueva empresa
-router.post('/empresas', (req, res) => {
-  const { nombre } = req.body;
-  if (!nombre) {
-    return res.status(400).json({ error: 'El nombre es requerido' });
-  }
-  db.run('INSERT INTO empresas (nombre) VALUES (?)', [nombre], function (err) {
-    if (err) return res.status(500).json({ error: err.message });
-    res.status(201).json({ id: this.lastID, nombre });
-  });
-});
-
-// Actualizar una empresa
-router.put('/empresas/:id', (req, res) => {
-  const { nombre } = req.body;
-  const id = req.params.id;
-  if (!nombre) return res.status(400).json({ error: 'El nombre es requerido' });
-
-  db.run('UPDATE empresas SET nombre = ? WHERE id = ?', [nombre, id], function (err) {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ message: 'Empresa actualizada' });
-  });
-});
-
-// Eliminar una empresa
-router.delete('/empresas/:id', (req, res) => {
-  const id = req.params.id;
-  db.run('DELETE FROM empresas WHERE id = ?', [id], function (err) {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ message: 'Empresa eliminada' });
-  });
-});
+const pool = require('../db/connection');
 
 // Obtener todas las rutas
-router.get('/rutas', (req, res) => {
-  db.all(`
-    SELECT rutas.id, origen, destino, empresa_id, empresas.nombre as empresa 
-    FROM rutas 
-    JOIN empresas ON rutas.empresa_id = empresas.id
-  `, [], (err, rows) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(rows);
-  });
+router.get('/rutas', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM rutas');
+        res.json(result.rows);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener las rutas' });
+    }
+});
+
+// Obtener una ruta por ID
+router.get('/rutas/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('SELECT * FROM rutas WHERE id = $1', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Ruta no encontrada' });
+        }
+        res.json(result.rows[0]);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener la ruta' });
+    }
 });
 
 // Crear una nueva ruta
-router.post('/rutas', (req, res) => {
-  const { origen, destino, empresa_id } = req.body;
-  if (!origen || !destino || !empresa_id) {
-    return res.status(400).json({ error: 'Faltan datos para crear la ruta' });
-  }
-  db.run(
-    'INSERT INTO rutas (origen, destino, empresa_id) VALUES (?, ?, ?)', 
-    [origen, destino, empresa_id], 
-    function (err) {
-      if (err) return res.status(500).json({ error: err.message });
-      res.status(201).json({ id: this.lastID, origen, destino, empresa_id });
-  });
-});
-
-// Actualizar una ruta
-router.put('/rutas/:id', (req, res) => {
-  const { origen, destino, empresa_id } = req.body;
-  const id = req.params.id;
-  if (!origen || !destino || !empresa_id) {
-    return res.status(400).json({ error: 'Faltan datos para actualizar la ruta' });
-  }
-
-  db.run(
-    'UPDATE rutas SET origen = ?, destino = ?, empresa_id = ? WHERE id = ?',
-    [origen, destino, empresa_id, id],
-    function (err) {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json({ message: 'Ruta actualizada' });
+router.post('/rutas', async (req, res) => {
+    const { origen, destino, distancia_km, duracion_estimada, precio } = req.body;
+    try {
+        const result = await pool.query(
+            'INSERT INTO rutas (origen, destino, distancia_km, duracion_estimada, precio) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+            [origen, destino, distancia_km, duracion_estimada, precio]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al crear la ruta' });
     }
-  );
 });
 
-// Eliminar una ruta
-router.delete('/rutas/:id', (req, res) => {
-  const id = req.params.id;
-  db.run('DELETE FROM rutas WHERE id = ?', [id], function (err) {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ message: 'Ruta eliminada' });
-  });
+// Actualizar una ruta por ID
+router.put('/rutas/:id', async (req, res) => {
+    const { id } = req.params;
+    const { origen, destino, distancia_km, duracion_estimada, precio } = req.body;
+    try {
+        const result = await pool.query(
+            'UPDATE rutas SET origen = $1, destino = $2, distancia_km = $3, duracion_estimada = $4, precio = $5 WHERE id = $6 RETURNING *',
+            [origen, destino, distancia_km, duracion_estimada, precio, id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Ruta no encontrada' });
+        }
+        res.json(result.rows[0]);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al actualizar la ruta' });
+    }
 });
 
-// Obtener rutas de una empresa específica
-router.get('/rutas/empresa/:id', (req, res) => {
-  const empresaId = req.params.id;
-  db.all(`
-    SELECT rutas.id, origen, destino, empresa_id, empresas.nombre as empresa 
-    FROM rutas 
-    JOIN empresas ON rutas.empresa_id = empresas.id
-    WHERE empresa_id = ?
-  `, [empresaId], (err, rows) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(rows);
-  });
-});
-
-// Endpoint de prueba
-router.get('/ping', (req, res) => {
-  res.json({ message: 'pong' });
+// Eliminar una ruta por ID
+router.delete('/rutas/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('DELETE FROM rutas WHERE id = $1 RETURNING *', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Ruta no encontrada' });
+        }
+        res.json({ message: 'Ruta eliminada' });
+    } catch (error) {
+        res.status(500).json({ error: 'Error al eliminar la ruta' });
+    }
 });
 
 module.exports = router;
-
