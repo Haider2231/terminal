@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Mapa from './components/Mapa';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ComprarTicket from './pages/ComprarTicket'; // NUEVO
 import { UserProvider } from './context/UserContext';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/mapa" element={<Mapa />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/comprar" element={<ComprarTicket />} /> {/* NUEVO */}
         </Routes>
       </Router>
     </UserProvider>

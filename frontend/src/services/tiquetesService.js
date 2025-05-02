@@ -13,11 +13,15 @@ export const getTickets = async () => {
   }
 };
 
-// Crear un nuevo ticket
+// Crear un nuevo ticket y devolver la información detallada del ticket
 export const createTicket = async (ticket) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/tickets`, ticket);
+
+    // Aquí asegúrate de que los datos recibidos tengan los nuevos detalles que ahora proporciona la API
+    console.log('Ticket creado:', response.data);
     return response.data;
+
   } catch (error) {
     console.error('Error al crear el ticket:', error);
     throw error;
