@@ -45,3 +45,25 @@ export const deleteUsuario = async (id) => {
     throw error;
   }
 };
+
+// Iniciar sesión
+export const loginUsuario = async (email, contraseña) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/usuarios/login`, { email, contraseña });
+    return response.data;
+  } catch (error) {
+    console.error('Error al iniciar sesión:', error);
+    throw error;
+  }
+};
+
+// Registrar un nuevo usuario
+export const registerUsuario = async (usuario) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/usuarios`, usuario);
+    return response.data;
+  } catch (error) {
+    console.error('Error al registrar usuario:', error);
+    throw error;
+  }
+};

@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 //const pool = require('./db/connection'); // Importar conexión a PostgreSQL
 const app = express();
 
@@ -19,6 +20,17 @@ const rutasMunicipio = require('./routes/rutas_municipio');
 app.use(cors());
 app.use(express.json()); // Para poder leer JSON en las peticiones
 
+// Middleware para verificar el token JWT
+const authenticateToken = (req, res, next) => {
+  const token = req.headers['authorization'];
+  if (!token) return res.status(401).json({ error: 'Acceso denegado' });
+
+  jwt.verify(token, 'SECRET_KEY', (err, user) => {
+    if (err) return res.status(403).json({ error: 'Token inválido' });
+    req.user = user;
+    next();
+  });
+};
 
 // Registrar rutas con prefijo /api
 app.use('/api/', rutas);
@@ -30,6 +42,11 @@ app.use('/api/', municipios);
 app.use('/api/', empresas);
 app.use('/api/', buses);
 app.use('/api/', rutasMunicipio);
+
+// Ejemplo de uso del middleware en una ruta protegida
+app.get('/api/protected', authenticateToken, (req, res) => {
+  res.json({ message: 'Acceso autorizado', user: req.user });
+});
 
 // Puerto
 const PORT = 4004;
