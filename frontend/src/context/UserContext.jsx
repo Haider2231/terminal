@@ -8,25 +8,13 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      setUser(JSON.parse(storedUser)); // Cargar usuario desde localStorage
     }
   }, []);
 
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const storedUser = localStorage.getItem('user');
-      setUser(storedUser ? JSON.parse(storedUser) : null);
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
-
   const logout = () => {
-    localStorage.removeItem('user');
-    setUser(null);
+    localStorage.removeItem('user'); // Eliminar usuario de localStorage
+    setUser(null); // Limpiar usuario del contexto
   };
 
   return (

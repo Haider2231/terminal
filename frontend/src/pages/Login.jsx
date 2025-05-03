@@ -4,6 +4,8 @@ import "../styles.css";
 import { loginUsuario } from '../services/usuariosService';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import { jwtDecode } from 'jwt-decode';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -15,14 +17,22 @@ const Login = () => {
     e.preventDefault();
     try {
       const data = await loginUsuario(email, contraseña);
-      alert('Inicio de sesión exitoso');
-      localStorage.setItem('user', JSON.stringify(data)); // Save user data
-      setUser(data); // Update user context
-      navigate('/'); // Redirect to the main page
+      const decodedToken = jwtDecode(data.token);
+  
+      const user = {
+        id: decodedToken.id,
+        email: decodedToken.email,
+        token: data.token
+      };
+  
+      localStorage.setItem('user', JSON.stringify(user));
+      setUser(user);
+      navigate('/');
     } catch (error) {
-      alert('Error al iniciar sesión');
+      alert('Error al iniciar sesión. Verifica tus credenciales.');
     }
   };
+  
 
   return (
     <>

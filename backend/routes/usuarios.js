@@ -94,7 +94,17 @@ router.post('/usuarios/login', async (req, res) => {
 
         // Generar token JWT
         const token = jwt.sign({ id: usuario.id, email: usuario.email }, 'SECRET_KEY', { expiresIn: '1h' });
-        res.json({ message: 'Inicio de sesión exitoso', token });
+
+        // Devolver datos del usuario junto con el token
+        res.json({
+            message: 'Inicio de sesión exitoso',
+            token,
+            user: {
+                id: usuario.id,
+                nombre: usuario.nombre,
+                email: usuario.email
+            }
+        });
     } catch (error) {
         res.status(500).json({ error: 'Error al iniciar sesión' });
     }

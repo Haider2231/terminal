@@ -1,6 +1,7 @@
 import React from 'react';
 import Buses from '../pages/Buses';
 import Rutas from '../pages/Rutas';
+import ComprarTicket from '../pages/ComprarTicket'; // Importar el componente
 
 function MainContent({ view }) {
   return (
@@ -15,6 +16,7 @@ function MainContent({ view }) {
       )}
       {view === 'buses' && <Buses />}
       {view === 'rutas' && <Rutas />}
+      {view === 'ComprarTicket' && <ComprarTicket />} {/* Renderizar ComprarTicket */}
     </main>
   );
 }

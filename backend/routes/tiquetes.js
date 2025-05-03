@@ -29,15 +29,19 @@ router.get('/tickets/:id', async (req, res) => {
 router.post('/tickets', async (req, res) => {
     const { usuario_id, viaje_id, asiento } = req.body;
 
+    console.log('Datos recibidos en el servidor:', { usuario_id, viaje_id, asiento }); // Depuración
+
     try {
         // Verificar existencia
         const usuarioResult = await pool.query('SELECT * FROM usuarios WHERE id = $1', [usuario_id]);
         if (usuarioResult.rowCount === 0) return res.status(400).json({ error: 'El usuario no existe' });
 
         const viajeResult = await pool.query(`
-            SELECT v.*, r.origen, r.destino, r.precio
+            SELECT v.*, r.origen, r.destino, r.precio, b.numero_bus, e.nombre AS empresa_nombre
             FROM viajes v
             JOIN rutas r ON v.ruta_id = r.id
+            JOIN buses b ON v.bus_id = b.id
+            JOIN empresas e ON b.empresa_id = e.id
             WHERE v.id = $1
         `, [viaje_id]);
         if (viajeResult.rowCount === 0) return res.status(400).json({ error: 'El viaje no existe' });
@@ -56,25 +60,25 @@ router.post('/tickets', async (req, res) => {
             [usuario_id, viaje_id, asiento]
         );
 
-        // Responder con info completa
         const ticket = ticketInsert.rows[0];
         const usuario = usuarioResult.rows[0];
         const viaje = viajeResult.rows[0];
 
         const responseData = {
             id: ticket.id,
-            nombre: usuario.nombre,         // 🔄 Cambiado de 'nombre_usuario'
+            nombre: usuario.nombre,
             origen: viaje.origen,
             destino: viaje.destino,
             salida: viaje.salida,
+            llegada: viaje.llegada,
+            numero_bus: viaje.numero_bus,
+            empresa: viaje.empresa_nombre, // Agregar nombre de la empresa
             asiento: ticket.asiento,
-            fecha: ticket.fecha_compra,     // 🔄 Usar 'fecha' para que coincida con frontend
+            fecha: ticket.fecha_compra,
             precio: viaje.precio
         };
-        
-        console.log('Ticket creado:', responseData); // Para depuración
-        res.status(201).json(responseData);
 
+        res.status(201).json(responseData);
     } catch (error) {
         console.error('Error al crear el ticket:', error);
         res.status(500).json({ error: 'Error al crear el ticket' });

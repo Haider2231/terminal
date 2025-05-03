@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Header from '../components/Header'; // Importamos el Header
-import MainContent from '../components/MainContent'; // Importamos el MainContent
-import Sidebar from '../components/Sidebar'; // Importamos el Sidebar
+import Header from '../components/Header';
+import MainContent from '../components/MainContent';
+import Sidebar from '../components/Sidebar';
 
 function Home() {
-  const [view, setView] = useState(null);
+  const [view, setView] = useState('ComprarTicket'); // Updated initial state to handle 'ComprarTicket'
 
   return (
     <div className="min-h-screen flex flex-col">
