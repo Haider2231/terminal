@@ -26,6 +26,21 @@ router.get('/buses/:id', async (req, res) => {
     }
 });
 
+// Obtener los buses por ruta
+router.get('/buses/ruta/:rutaId', async (req, res) => {
+    const { rutaId } = req.params;
+    try {
+        const result = await pool.query(
+            'SELECT * FROM buses WHERE id IN (SELECT bus_id FROM viajes WHERE ruta_id = $1)',
+            [rutaId]
+        );
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error al obtener los buses por ruta:', error);
+        res.status(500).json({ error: 'Error al obtener los buses por ruta' });
+    }
+});
+
 // Crear un nuevo bus
 router.post('/buses', async (req, res) => {
     const { numero_bus, conductor, empresa_id } = req.body;

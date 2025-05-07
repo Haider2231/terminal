@@ -80,7 +80,7 @@ function Buses() {
           <h3 className="text-lg font-bold">Rutas de {selectedBus.nombre}</h3>
           <ul className="mt-2 list-disc list-inside">
             {rutas.map((ruta) => (
-              <li key={ruta.id} className="flex justify-between items-center">
+              <li key={ruta.id} className="flex justify-between items-center space-x-4">
                 <span>{ruta.origen} → {ruta.destino}</span>
                 <button 
                   onClick={() => handleVerBuses(ruta.id)} 

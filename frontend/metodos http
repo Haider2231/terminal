@@ -65,3 +65,13 @@ curl -X POST http://localhost:4004/api/empresas \
 curl -X POST http://localhost:4004/api/rutas \
 -H "Content-Type: application/json" \
 -d '{}'
+
+# Crear viaje
+curl -X POST http://localhost:4004/api/viajes \
+-H "Content-Type: application/json" \
+-d '{
+  "ruta_id": 1,
+  "fecha": "2025-05-10",
+  "hora": "08:00",
+  "precio": 25000
+}'

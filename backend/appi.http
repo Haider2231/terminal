@@ -1,1 +1,22 @@
 GET http://localhost:4004/api/rutas
+
+### Crear un nuevo viaje
+POST http://localhost:4004/api/viajes
+Content-Type: application/json
+
+{
+  "bus_id": 1,
+  "ruta_id": 2,
+  "salida": "2025-05-10T08:00:00",
+  "llegada": "2025-05-10T12:00:00"
+}
+
+### Crear un nuevo bus
+POST http://localhost:4004/api/buses
+Content-Type: application/json
+
+{
+  "numero_bus": "1234",
+  "conductor": "Juan Pérez",
+  "empresa_id": 1
+}

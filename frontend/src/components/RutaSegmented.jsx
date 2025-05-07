@@ -3,17 +3,24 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bus, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getBusesPorRuta } from '../services/busesService';
 
 function RutasSegmented({ ruta, viajes, onVerBuses }) {
   const navigate = useNavigate();
   const [mostrarViajes, setMostrarViajes] = useState(false);
+  const [buses, setBuses] = useState([]); // Estado para almacenar los buses
 
   const handleMapa = () => {
     navigate('/mapa', { state: { ruta } });
   };
 
   const handleBuses = async () => {
-    await onVerBuses(ruta.id);
+    try {
+      const busesData = await getBusesPorRuta(ruta.id); // Obtener buses por ruta
+      setBuses(busesData);
+    } catch (error) {
+      console.error('Error al obtener los buses:', error);
+    }
     setMostrarViajes(!mostrarViajes);
   };
 
@@ -49,7 +56,7 @@ function RutasSegmented({ ruta, viajes, onVerBuses }) {
       </div>
 
       <AnimatePresence>
-        {mostrarViajes && viajes && (
+        {mostrarViajes && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
@@ -59,9 +66,9 @@ function RutasSegmented({ ruta, viajes, onVerBuses }) {
           >
             <p className="font-semibold mb-2">🚌 Buses disponibles:</p>
             <ul className="list-disc list-inside text-gray-700 space-y-1">
-              {viajes.map((viaje) => (
-                <li key={viaje.id}>
-                  <strong>Bus:</strong> {viaje.numero_bus}, <strong>Salida:</strong> {new Date(viaje.salida).toLocaleString()}
+              {buses.map((bus) => (
+                <li key={bus.id}>
+                  <strong>Bus:</strong> {bus.numero_bus}, <strong>Conductor:</strong> {bus.conductor}
                 </li>
               ))}
             </ul>

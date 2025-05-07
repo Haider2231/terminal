@@ -4,7 +4,7 @@ import MainContent from '../components/MainContent';
 import Sidebar from '../components/Sidebar';
 
 function Home() {
-  const [view, setView] = useState('ComprarTicket'); // Updated initial state to handle 'ComprarTicket'
+  const [view, setView] = useState(null); // Cambiar el estado inicial a null
 
   return (
     <div className="min-h-screen flex flex-col">
