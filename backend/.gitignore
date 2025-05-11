@@ -1,0 +1,42 @@
+# ========================
+# Configuración para Backend Node.js
+# ========================
+
+# Dependencias
+node_modules/      # Directorio de dependencias de Node.js
+package-lock.json  # Archivo de bloqueo (si usas npm)
+yarn.lock          # Archivo de bloqueo (si usas yarn)
+
+# Archivos generados
+dist/             # Directorio de código compilado
+build/            # Directorio alternativo para builds
+*.local           # Archivos de configuración local
+
+# Archivos de registro
+logs/             # Directorio de logs de la aplicación
+*.log             # Archivos de registro generales
+npm-debug.log*    # Logs de depuración de npm
+yarn-debug.log*   # Logs de depuración de yarn
+yarn-error.log*   # Logs de errores de yarn
+pnpm-debug.log*   # Logs de depuración de pnpm
+lerna-debug.log*  # Logs de depuración de lerna
+
+# Variables de entorno
+.env              # Configuración de entorno
+.env.local        # Configuraciones locales
+.env*.local       # Todos los archivos locales de entorno
+
+# Herramientas de desarrollo
+.idea/            # Archivos de JetBrains IDEs
+.vscode/          # Configuración de VS Code
+!.vscode/extensions.json  # Conservar extensiones recomendadas
+.DS_Store         # Archivos de atributos de macOS
+*.suo             # Opciones de usuario de Visual Studio
+*.ntvs*           # Node.js Tools para Visual Studio
+*.njsproj         # Archivos de proyecto Node.js (VS)
+*.sln             # Archivos de solución de Visual Studio
+*.sw?             # Archivos swap (vim y otros editores)
+
+# Bases de datos
+*.db              # Archivos de bases de datos locales
+*.sqlite          # Archivos de base de datos SQLite

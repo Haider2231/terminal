@@ -1,24 +1,29 @@
+# ========================
+# Configuración para Front
+# ========================
+
 # Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+logs               # Directorio de logs generados por la aplicación
+*.log              # Archivos de registro genéricos
+npm-debug.log*     # Logs de depuración de npm
+yarn-debug.log*    # Logs de depuración de yarn
+yarn-error.log*    # Logs de errores de yarn
+pnpm-debug.log*    # Logs de depuración de pnpm
+lerna-debug.log*   # Logs de depuración de lerna
 
-node_modules
-dist
-dist-ssr
-*.local
+# Dependencias y builds
+node_modules       # Dependencias de Node.js (no versionables)
+dist               # Directorio de build de producción
+dist-ssr           # Directorio de build para SSR
+*.local            # Archivos de configuración local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Entornos de desarrollo y editores
+.vscode/*          # Configuración de VS Code
+!.vscode/extensions.json  # Excepción: archivo de extensiones recomendadas
+.idea              # Configuración de IDEs JetBrains
+.DS_Store          # Archivo de metadatos de macOS
+*.suo              # Opciones de usuario de Visual Studio
+*.ntvs*            # Archivos de Node Tools para Visual Studio
+*.njsproj          # Archivos de proyecto Node.js de Visual Studio
+*.sln              # Archivos de solución de Visual Studio
+*.sw?              # Archivos swap de editores (vim, etc.)

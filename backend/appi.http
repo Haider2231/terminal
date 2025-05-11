@@ -1,9 +1,15 @@
+# Obtener todas las rutas disponibles
 GET http://localhost:4004/api/rutas
 
 ### Crear un nuevo viaje
 POST http://localhost:4004/api/viajes
 Content-Type: application/json
 
+# Cuerpo de la solicitud para crear un viaje:
+# - bus_id: ID del bus asignado al viaje
+# - ruta_id: ID de la ruta que se recorrerá
+# - salida: Fecha y hora de salida (formato ISO 8601)
+# - llegada: Fecha y hora estimada de llegada (formato ISO 8601)
 {
   "bus_id": 1,
   "ruta_id": 2,
@@ -15,6 +21,10 @@ Content-Type: application/json
 POST http://localhost:4004/api/buses
 Content-Type: application/json
 
+# Cuerpo de la solicitud para registrar un bus:
+# - numero_bus: Número de identificación del bus
+# - conductor: Nombre del conductor asignado
+# - empresa_id: ID de la empresa propietaria del bus
 {
   "numero_bus": "1234",
   "conductor": "Juan Pérez",

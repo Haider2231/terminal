@@ -3,21 +3,32 @@ import Header from '../components/Header';
 import MainContent from '../components/MainContent';
 import Sidebar from '../components/Sidebar';
 
+/**
+ * Componente Home - Página principal de la aplicación
+ * Maneja el estado de la vista actual y la estructura general del layout
+ * 
+ * @returns {JSX.Element} Estructura principal de la aplicación
+ */
 function Home() {
-  const [view, setView] = useState(null); // Cambiar el estado inicial a null
+  // Estado para controlar la vista actual (null: vista de inicio)
+  const [view, setView] = useState(null);
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
+      {/* Componente Header - Barra superior de navegación */}
       <Header setView={setView} />
 
-      {/* Main Content Area */}
+      {/* Contenedor principal (flexible) que alberga Sidebar y MainContent */}
       <div className="flex flex-grow">
-        {/* Sidebar */}
-        <Sidebar onSelect={setView} />
+        {/* Componente Sidebar - Menú lateral de navegación */}
+        <Sidebar 
+          onSelect={setView}  // Pasa la función para cambiar la vista
+        />
 
-        {/* Main Content */}
-        <MainContent view={view} />
+        {/* Componente MainContent - Área de contenido dinámico */}
+        <MainContent 
+          view={view}  // Vista actual a mostrar
+        />
       </div>
     </div>
   );
