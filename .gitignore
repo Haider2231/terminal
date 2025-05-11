@@ -12,7 +12,7 @@ pnpm-debug.log*    # Logs de depuración de pnpm
 lerna-debug.log*   # Logs de depuración de lerna
 
 # Dependencias y builds
-node_modules       # Dependencias de Node.js (no versionables)
+node_modules/       # Dependencias de Node.js (no versionables)
 dist               # Directorio de build de producción
 dist-ssr           # Directorio de build para SSR
 *.local            # Archivos de configuración local
