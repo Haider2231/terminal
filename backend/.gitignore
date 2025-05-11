@@ -1,0 +1,29 @@
+# === DEPENDENCIAS ===
+node_modules/           # Carpeta donde se instalan las dependencias de Node.js (no debe subirse al repo)
+
+# === ARCHIVOS DE COMPILACIÓN Y TEMPORALES ===
+dist/                   # Archivos compilados (por ejemplo si usas TypeScript)
+build/                  # Alternativa común a 'dist' como carpeta de salida
+*.log                   # Archivos de logs genéricos
+*.tmp                   # Archivos temporales
+*.cache                 # Archivos de caché
+npm-debug.log*          # Logs de errores de npm
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# === VARIABLES DE ENTORNO ===
+.env                    # Archivo principal de variables de entorno (puede contener claves privadas)
+.env.*                  # Otras variantes como .env.local, .env.production, etc.
+
+# === CONFIGURACIÓN DE EDITORES ===
+.vscode/                # Configuración local del editor VS Code
+.idea/                  # Configuración del IDE WebStorm / PhpStorm
+.DS_Store               # Archivo de sistema generado por macOS (innecesario)
+
+# === ARCHIVOS DE PROYECTOS DE VISUAL STUDIO (si aplicara) ===
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

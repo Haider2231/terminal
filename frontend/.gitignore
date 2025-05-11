@@ -1,24 +1,28 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
+# === LOGS ===
+# Ignora carpetas y archivos de logs generados por procesos o herramientas
+logs                    # Carpeta genérica llamada 'logs'
+*.log                   # Archivos con extensión .log (logs en general)
+npm-debug.log*          # Logs de errores o depuración de npm
+yarn-debug.log*         # Logs de errores o depuración de yarn
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+pnpm-debug.log*         # Logs de pnpm
+lerna-debug.log*        # Logs de Lerna (monorepositorios)
 
-node_modules
-dist
-dist-ssr
-*.local
+# === DEPENDENCIAS Y BUILD ===
+node_modules/           # Carpeta donde se instalan las dependencias de Node.js (no se debe subir)
+dist/                   # Carpeta de archivos generados por herramientas de build (como Webpack)
+dist-ssr/               # Carpeta de build para Server Side Rendering, si se usa
+*.local                 # Archivos de configuración local (pueden contener rutas o claves privadas)
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# === CONFIGURACIONES DE EDITORES ===
+.vscode/*               # Configuración del editor VS Code (excepto excepciones abajo)
+!.vscode/extensions.json # Este archivo puede compartirse para recomendar extensiones en VS Code
+.idea                   # Configuración del IDE WebStorm / PhpStorm
+.DS_Store               # Archivo oculto del sistema macOS, innecesario para el repositorio
+
+# === ARCHIVOS DE PROYECTOS DE VISUAL STUDIO ===
+*.suo                   # Opciones de solución de Visual Studio
+*.ntvs*                 # Archivos relacionados con Node.js Tools for Visual Studio
+*.njsproj               # Proyectos de Node.js en Visual Studio
+*.sln                   # Soluciones de Visual Studio
+*.sw?                   # Archivos temporales de editores (como vim: .swa, .swp, .swo)

@@ -1,262 +1,325 @@
-/* styles.css */
-
-/* Paleta de colores original */
+/* 
+  Paleta de colores original: Variables CSS definidas para los colores de la aplicación 
+*/
 :root {
-  --color-blue: #0d6efd;
-  --color-sky: #0dcaf0;
-  --color-lime: #198754;
-  --color-soft: #d1ecf1;
-  --color-white: #ffffff;
-  --color-fondo: #003B70;
-  --gradient-header-green: linear-gradient(to right, var(--color-sky), var(--color-lime));
+  --color-blue: #0d6efd; /* Azul */
+  --color-sky: #0dcaf0; /* Cielo */
+  --color-lime: #198754; /* Lima */
+  --color-soft: #d1ecf1; /* Suave */
+  --color-white: #ffffff; /* Blanco */
+  --color-fondo: #003B70; /* Fondo oscuro */
+  --gradient-header-green: linear-gradient(to right, var(--color-sky), var(--color-lime)); /* Gradiente para el header */
 }
 
-/* Estilo para el cuerpo */
+/* 
+  Estilo para el cuerpo de la página 
+*/
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: var(--gradient-header-green);
+  font-family: Arial, sans-serif; /* Fuente sans-serif */
+  margin: 0; /* Eliminar margen */
+  padding: 0; /* Eliminar padding */
+  background-color: var(--gradient-header-green); /* Gradiente de fondo */
 }
 
-/* Estilos para el header */
+/* 
+  Estilos para el header de la aplicación
+*/
 .custom-header {
-  background-color: var(--color-soft);
-  padding: 20px 20px;
-  border: 0.1px solid var(--color-lime);
+  background-color: var(--color-soft); /* Fondo suave */
+  padding: 20px 20px; /* Espaciado interno */
+  border: 0.1px solid var(--color-lime); /* Borde verde lima */
 }
 
-/* Contenedor del contenido del header */
+/* 
+  Contenedor que organiza el contenido del header
+*/
 .header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex; /* Disposición en fila */
+  justify-content: space-between; /* Espacio entre los elementos */
+  align-items: center; /* Alineación vertical centrada */
 }
 
-/* Logo */
+/* 
+  Estilo para el logo en el header
+*/
 .logo {
-  height: 60px;
+  height: 60px; /* Altura definida para el logo */
 }
 
-/* Grupo de botones */
+/* 
+  Contenedor para agrupar los botones del header
+*/
 .button-group {
-  display: flex;
-  gap: 15px;
+  display: flex; /* Disposición horizontal */
+  gap: 15px; /* Espaciado de 15px entre los botones */
 }
 
-/* Botones */
+/* 
+  Estilos para los botones en el header
+*/
 .header-button {
-  background-color: var(--color-blue);
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 15px;
+  background-color: var(--color-blue); /* Fondo azul */
+  color: white; /* Texto blanco */
+  padding: 10px 20px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 10px; /* Bordes redondeados */
+  cursor: pointer; /* Aparece como puntero al pasar el mouse */
+  transition: background-color 0.3s ease; /* Transición suave en el color de fondo */
+  font-size: 15px; /* Tamaño de fuente */
 }
 
+/* 
+  Efecto hover para los botones en el header
+*/
 .header-button:hover {
-  background-color: var(--color-lime);
+  background-color: var(--color-lime); /* Cambia el color de fondo a verde lima */
 }
 
-/* Estilo para la lista de empresas */
+/* 
+  Estilo para la lista de empresas en la aplicación
+*/
 .empresas-list {
-  margin: 20px;
+  margin: 20px; /* Espaciado de 20px */
 }
 
-/* Estilo para cada tarjeta de empresa */
+/* 
+  Estilo para cada tarjeta de empresa
+*/
 .empresa-card {
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background-color: #ffffff; /* Fondo blanco */
+  border: 1px solid #ddd; /* Borde gris claro */
+  padding: 15px; /* Espaciado interno */
+  margin: 10px 0; /* Espaciado entre tarjetas */
+  border-radius: 5px; /* Bordes redondeados */
+  display: flex; /* Disposición en fila */
+  justify-content: space-between; /* Espacio entre los elementos */
+  align-items: center; /* Alineación vertical centrada */
 }
 
-/* Estilo para los botones de ruta */
+/* 
+  Estilos para los botones de ruta
+*/
 .route-button {
-  background-color: var(--color-blue);
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
+  background-color: var(--color-blue); /* Fondo azul */
+  color: white; /* Texto blanco */
+  padding: 10px 15px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 10px; /* Bordes redondeados */
+  cursor: pointer; /* Aparece como puntero al pasar el mouse */
 }
 
+/* 
+  Efecto hover para los botones de ruta
+*/
 .route-button:hover {
-  background-color: var(--color-lime);
+  background-color: var(--color-lime); /* Cambia el color de fondo a verde lima */
 }
 
-/* Custom button styles */
+/* 
+  Estilos personalizados para los botones redondeados
+*/
 .full-rounded {
-  border-radius: 2em;
+  border-radius: 2em; /* Bordes completamente redondeados */
 }
 
-/* Radio button styles */
+/* 
+  Estilos para los inputs de tipo radio (botones de opción)
+*/
 .radio-inputs {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 350px;
-  user-select: none;
+  display: flex; /* Disposición horizontal */
+  justify-content: center; /* Centrado de los radio buttons */
+  align-items: center; /* Alineación vertical centrada */
+  max-width: 350px; /* Ancho máximo de 350px */
+  user-select: none; /* Deshabilita la selección de texto */
 }
 
 .radio-inputs > * {
-  margin: 6px;
+  margin: 6px; /* Margen de 6px entre los elementos */
 }
 
+/* 
+  Estilos para el estado seleccionado de los radio buttons
+*/
 .radio-input:checked + .radio-tile {
-  border-color: #2260ff;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  color: #2260ff;
+  border-color: #2260ff; /* Borde azul */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  color: #2260ff; /* Color azul */
 }
 
+/* 
+  Estilos para el icono dentro de los radio tiles cuando están seleccionados
+*/
 .radio-input:checked + .radio-tile:before {
-  transform: scale(1);
-  opacity: 1;
-  background-color: #2260ff;
-  border-color: #2260ff;
+  transform: scale(1); /* Escalado del icono */
+  opacity: 1; /* Opacidad del icono */
+  background-color: #2260ff; /* Fondo azul */
+  border-color: #2260ff; /* Borde azul */
 }
 
+/* 
+  Estilos para el texto de los radio tiles cuando están seleccionados
+*/
 .radio-input:checked + .radio-tile .radio-icon svg {
-  fill: #2260ff;
+  fill: #2260ff; /* Icono azul */
 }
 
 .radio-input:checked + .radio-tile .radio-label {
-  color: #2260ff;
+  color: #2260ff; /* Texto azul */
 }
 
+/* 
+  Estilos para el foco en los radio tiles
+*/
 .radio-input:focus + .radio-tile {
-  border-color: #2260ff;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
+  border-color: #2260ff; /* Borde azul en foco */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc; /* Sombra suave */
 }
 
-.radio-input:focus + .radio-tile:before {
-  transform: scale(1);
-  opacity: 1;
-}
-
+/* 
+  Estilo de los radio tiles
+*/
 .radio-tile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  min-height: 80px;
-  border-radius: 0.5rem;
-  border: 2px solid #b5bfd9;
-  background-color: #fff;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  transition: 0.15s ease;
-  cursor: pointer;
-  position: relative;
+  display: flex; /* Disposición en columna */
+  flex-direction: column; /* Dirección de los elementos en columna */
+  align-items: center; /* Alineación centrada */
+  justify-content: center; /* Alineación centrada */
+  width: 80px; /* Ancho fijo de 80px */
+  min-height: 80px; /* Altura mínima de 80px */
+  border-radius: 0.5rem; /* Bordes redondeados */
+  border: 2px solid #b5bfd9; /* Borde gris claro */
+  background-color: #fff; /* Fondo blanco */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  transition: 0.15s ease; /* Transición suave */
+  cursor: pointer; /* Aparece como puntero */
+  position: relative; /* Posicionamiento relativo */
 }
 
+/* 
+  Estilos para el icono de radio tile antes de ser seleccionado
+*/
 .radio-tile:before {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
-  border: 2px solid #b5bfd9;
-  background-color: #fff;
-  border-radius: 50%;
-  top: 0.25rem;
-  left: 0.25rem;
-  opacity: 0;
-  transform: scale(0);
-  transition: 0.25s ease;
+  content: ""; /* Contenido vacío */
+  position: absolute; /* Posicionamiento absoluto */
+  display: block; /* Bloque de visualización */
+  width: 0.75rem; /* Ancho de 0.75rem */
+  height: 0.75rem; /* Altura de 0.75rem */
+  border: 2px solid #b5bfd9; /* Borde gris claro */
+  background-color: #fff; /* Fondo blanco */
+  border-radius: 50%; /* Forma circular */
+  top: 0.25rem; /* Posicionamiento superior */
+  left: 0.25rem; /* Posicionamiento izquierdo */
+  opacity: 0; /* Inicialmente invisible */
+  transform: scale(0); /* Inicialmente escalado a 0 */
+  transition: 0.25s ease; /* Transición suave */
 }
 
+/* 
+  Efecto hover sobre los radio tiles
+*/
 .radio-tile:hover {
-  border-color: #2260ff;
+  border-color: #2260ff; /* Borde azul */
 }
 
 .radio-tile:hover:before {
-  transform: scale(1);
-  opacity: 1;
+  transform: scale(1); /* Escalado del icono */
+  opacity: 1; /* Hace visible el icono */
 }
 
+/* 
+  Estilos para el texto dentro de los radio tiles
+*/
 .radio-label {
-  color: #494949;
-  transition: 0.375s ease;
-  text-align: center;
-  font-size: 13px;
+  color: #494949; /* Color de texto gris */
+  transition: 0.375s ease; /* Transición suave */
+  text-align: center; /* Alineación centrada */
+  font-size: 13px; /* Tamaño de fuente */
 }
 
+/* 
+  Estilos para el texto cuando el radio tile está en hover
+*/
 .radio-tile:hover .radio-label {
-  color: #2260ff;
+  color: #2260ff; /* Texto azul en hover */
 }
 
+/* 
+  Estilo para el texto cuando el radio button está seleccionado
+*/
 .radio-input:checked + .radio-tile .radio-label {
-  color: #2260ff;
+  color: #2260ff; /* Texto azul cuando está seleccionado */
 }
 
+/* 
+  Estilo oculto para el input de tipo radio
+*/
 .radio-input {
-  clip: rect(0 0 0 0);
-  clip-path: inset(100%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
+  clip: rect(0 0 0 0); /* Corta el radio input */
+  clip-path: inset(100%); /* Lo oculta visualmente */
+  height: 1px; /* Altura mínima */
+  overflow: hidden; /* Oculta cualquier contenido desbordado */
+  position: absolute; /* Posición absoluta */
+  white-space: nowrap; /* No permite saltos de línea */
+  width: 1px; /* Ancho mínimo */
 }
 
-/* Contenedor principal */
+/* 
+  Estilos para el contenedor principal de la aplicación
+*/
 .min-h-screen {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  display: flex; /* Disposición flexible */
+  flex-direction: column; /* Dirección de los elementos en columna */
+  min-height: 100vh; /* Altura mínima de pantalla completa */
 }
 
-/* Contenedor del contenido principal */
+/* 
+  Estilos para el contenedor principal del contenido
+*/
 .flex {
-  display: flex;
-  flex-grow: 1;
+  display: flex; /* Disposición flexible */
+  flex-grow: 1; /* Permite que el contenedor crezca */
 }
 
-/* Sidebar */
+/* 
+  Estilos para el sidebar
+*/
 aside {
-  width: 250px;
-  background-color: var(--color-soft);
-  color: white;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  width: 250px; /* Ancho fijo de 250px */
+  background-color: var(--color-soft); /* Fondo suave */
+  color: white; /* Texto blanco */
+  padding: 20px; /* Espaciado interno */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
+/* 
+  Estilo para los títulos dentro del sidebar
+*/
 aside h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: white;
+  font-size: 1.5rem; /* Tamaño de fuente grande */
+  margin-bottom: 15px; /* Espaciado inferior */
 }
 
+/* 
+  Estilo para los botones dentro del sidebar
+*/
 aside button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  background-color: var(--color-blue);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 15px;
+  display: block; /* Elementos en bloque */
+  width: 100%; /* Ancho completo */
+  text-align: left; /* Alineación de texto a la izquierda */
+  padding: 10px 15px; /* Espaciado interno */
+  margin-bottom: 10px; /* Espaciado inferior */
+  background-color: var(--color-blue); /* Fondo azul */
+  color: white; /* Texto blanco */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Aparece como puntero */
 }
 
-aside button:hover {
-  background-color: var(--color-lime);
-}
-
-/* Main Content */
+/* 
+  Estilos para el main content
+*/
 main {
-  flex-grow: 1;
-  background-color: var(--color-white);
-  padding: 20px;
-  overflow-y: auto;
+  flex-grow: 1; /* Permite que el contenido crezca */
+  background-color: var(--color-white); /* Fondo blanco */
+  padding: 20px; /* Espaciado interno */
+  overflow-y: auto; /* Desplazamiento vertical si es necesario */
 }
