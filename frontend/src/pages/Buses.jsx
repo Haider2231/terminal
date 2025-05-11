@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { getEmpresas, getRutasPorEmpresa } from '../services/rutasService'; // Importamos el servicio
-import { getViajesPorRuta } from '../services/viajesService'; // Importamos el servicio para obtener viajes
+import { getEmpresas, getRutasPorEmpresa } from '../services/rutasService';
+import { getBusesPorRuta } from '../services/busesService';
 
 function Buses() {
-  const [buses, setBuses] = useState([]);
+  const [empresas, setEmpresas] = useState([]);
   const [rutas, setRutas] = useState([]);
-  const [selectedBus, setSelectedBus] = useState(null);
+  const [buses, setBuses] = useState([]);
+  const [selectedEmpresa, setSelectedEmpresa] = useState(null);
   const [mensaje, setMensaje] = useState('');
-  const [viajes, setViajes] = useState([]); // Estado para almacenar los viajes
 
-  // Al montar el componente, cargar las empresas automáticamente
   useEffect(() => {
     const fetchEmpresas = async () => {
       try {
         const data = await getEmpresas();
         if (data.length > 0) {
-          setBuses(data);
-          setMensaje(''); // Reset mensaje
+          setEmpresas(data);
+          setMensaje('');
         } else {
           setMensaje('No hay empresas registradas.');
         }
@@ -28,14 +27,14 @@ function Buses() {
     fetchEmpresas();
   }, []);
 
-  const handleBusClick = async (bus) => {
-    setSelectedBus(bus);
-    setRutas([]); // Limpiar rutas previas al seleccionar nueva empresa
-    setViajes([]); // Limpiar viajes previos
-    setMensaje(''); // Limpiar mensaje de error al seleccionar nueva empresa
+  const handleEmpresaClick = async (empresa) => {
+    setSelectedEmpresa(empresa);
+    setRutas([]);
+    setBuses([]);
+    setMensaje('');
 
     try {
-      const data = await getRutasPorEmpresa(bus.id);
+      const data = await getRutasPorEmpresa(empresa.id);
       if (data.length > 0) {
         setRutas(data);
       } else {
@@ -47,11 +46,18 @@ function Buses() {
   };
 
   const handleVerBuses = async (rutaId) => {
+    setBuses([]);
+    setMensaje('');
+
     try {
-      const data = await getViajesPorRuta(rutaId);
-      setViajes(data);
+      const data = await getBusesPorRuta(rutaId);
+      if (data.length > 0) {
+        setBuses(data);
+      } else {
+        setMensaje('No hay buses disponibles para esta ruta.');
+      }
     } catch (error) {
-      console.error('Error al obtener los viajes:', error);
+      setMensaje('Hubo un error al cargar los buses.');
     }
   };
 
@@ -62,28 +68,28 @@ function Buses() {
       {mensaje && <p className="text-red-500">{mensaje}</p>}
 
       <div className="radio-inputs">
-        {buses.map((bus) => (
-          <label key={bus.id} className="radio-tile">
+        {empresas.map((empresa) => (
+          <label key={empresa.id} className="radio-tile">
             <input
               type="radio"
-              name="bus"
+              name="empresa"
               className="radio-input"
-              onChange={() => handleBusClick(bus)}
+              onChange={() => handleEmpresaClick(empresa)}
             />
-            <span className="radio-label">{bus.nombre}</span>
+            <span className="radio-label">{empresa.nombre}</span>
           </label>
         ))}
       </div>
 
-      {selectedBus && rutas.length > 0 && (
+      {selectedEmpresa && rutas.length > 0 && (
         <div className="mt-6">
-          <h3 className="text-lg font-bold">Rutas de {selectedBus.nombre}</h3>
+          <h3 className="text-lg font-bold">Rutas de {selectedEmpresa.nombre}</h3>
           <ul className="mt-2 list-disc list-inside">
             {rutas.map((ruta) => (
               <li key={ruta.id} className="flex justify-between items-center space-x-4">
                 <span>{ruta.origen} → {ruta.destino}</span>
-                <button 
-                  onClick={() => handleVerBuses(ruta.id)} 
+                <button
+                  onClick={() => handleVerBuses(ruta.id)}
                   className="header-button"
                 >
                   Ver Buses
@@ -94,13 +100,13 @@ function Buses() {
         </div>
       )}
 
-      {viajes.length > 0 && (
+      {buses.length > 0 && (
         <div className="mt-6">
           <h3 className="text-lg font-bold">Buses Disponibles</h3>
           <ul className="mt-2 list-disc list-inside">
-            {viajes.map((viaje) => (
-              <li key={viaje.id}>
-                Bus: {viaje.numero_bus}, Salida: {viaje.salida}, Llegada: {viaje.llegada}
+            {buses.map((bus) => (
+              <li key={bus.id}>
+                <strong>Bus:</strong> {bus.numero_bus}, <strong>Conductor:</strong> {bus.conductor}
               </li>
             ))}
           </ul>

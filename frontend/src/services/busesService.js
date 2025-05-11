@@ -50,7 +50,7 @@ export const deleteBus = async (id) => {
 export const getBusesPorRuta = async (rutaId) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/buses/ruta/${rutaId}`);
-    return response.data;
+    return response.data; // Asegúrate de que devuelve un array con todos los buses
   } catch (error) {
     console.error('Error al obtener los buses por ruta:', error);
     throw error;

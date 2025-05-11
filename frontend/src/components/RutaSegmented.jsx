@@ -5,10 +5,10 @@ import { Bus, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getBusesPorRuta } from '../services/busesService';
 
-function RutasSegmented({ ruta, viajes, onVerBuses }) {
+function RutasSegmented({ ruta }) {
   const navigate = useNavigate();
-  const [mostrarViajes, setMostrarViajes] = useState(false);
-  const [buses, setBuses] = useState([]); // Estado para almacenar los buses
+  const [mostrarBuses, setMostrarBuses] = useState(false);
+  const [buses, setBuses] = useState([]);
 
   const handleMapa = () => {
     navigate('/mapa', { state: { ruta } });
@@ -21,7 +21,7 @@ function RutasSegmented({ ruta, viajes, onVerBuses }) {
     } catch (error) {
       console.error('Error al obtener los buses:', error);
     }
-    setMostrarViajes(!mostrarViajes);
+    setMostrarBuses(!mostrarBuses);
   };
 
   return (
@@ -56,7 +56,7 @@ function RutasSegmented({ ruta, viajes, onVerBuses }) {
       </div>
 
       <AnimatePresence>
-        {mostrarViajes && (
+        {mostrarBuses && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}

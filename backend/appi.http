@@ -20,3 +20,43 @@ Content-Type: application/json
   "conductor": "Juan Pérez",
   "empresa_id": 1
 }
+
+### Crear buses para empresa_id 3
+POST http://localhost:4004/api/buses
+Content-Type: application/json
+
+{
+  "numero_bus": "3001",
+  "conductor": "Carlos Gómez",
+  "empresa_id": 3
+}
+### Crear otro bus para empresa_id 3
+POST http://localhost:4004/api/buses
+Content-Type: application/json
+
+{
+  "numero_bus": "3002",
+  "conductor": "Ana Martínez",
+  "empresa_id": 3
+}
+
+### Crear buses para empresa_id 2
+POST http://localhost:4004/api/buses
+Content-Type: application/json
+
+{
+  "numero_bus": "2001",
+  "conductor": "Luis Fernández",
+  "empresa_id": 2
+}
+### Crear otro bus para empresa_id 2
+POST http://localhost:4004/api/buses
+Content-Type: application/json
+
+{
+  "numero_bus": "2002",
+  "conductor": "María López",
+  "empresa_id": 2
+}
+
+

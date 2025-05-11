@@ -31,7 +31,10 @@ router.get('/buses/ruta/:rutaId', async (req, res) => {
     const { rutaId } = req.params;
     try {
         const result = await pool.query(
-            'SELECT * FROM buses WHERE id IN (SELECT bus_id FROM viajes WHERE ruta_id = $1)',
+            `SELECT b.* 
+             FROM buses b
+             JOIN viajes v ON b.id = v.bus_id
+             WHERE v.ruta_id = $1`,
             [rutaId]
         );
         res.json(result.rows);
